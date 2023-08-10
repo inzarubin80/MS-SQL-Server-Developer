@@ -59,7 +59,6 @@ YEAR, Month
 SELECT
 YEAR(Invoices.InvoiceDate) as YEAR,
     MOnth(Invoices.InvoiceDate) as Month,
-    AVG(InvoiceLines.UnitPrice) AvgUnitPrice,
     Sum (InvoiceLines.UnitPrice*InvoiceLines.Quantity) as Sum
 from Sales.Invoices as Invoices
     JOIN Sales.InvoiceLines as InvoiceLines
@@ -99,20 +98,19 @@ YEAR,
 Month,
 StockItemID,
 Max(StockItemName) as StockItemName,
-AVG(AvgUnitPrice) as AvgUnitPrice,
+Sum(Sum) as Sum,
 Min(MinDate) as MinDate,
-Sum(Sum) as Sum
+Sum(Quantity) as Quantity
 from
 (SELECT
 YEAR(Invoices.InvoiceDate) as YEAR,
     MOnth(Invoices.InvoiceDate) as Month,
-    AVG(InvoiceLines.UnitPrice) AvgUnitPrice,
+    Sum (InvoiceLines.Quantity) as Quantity,
     Sum (InvoiceLines.UnitPrice*InvoiceLines.Quantity) as Sum,
 	InvoiceLines.StockItemID,
 	StockItems.StockItemName as StockItemName,
 	Min(Invoices.InvoiceDate) as MinDate
     
-
 from Sales.Invoices as Invoices
     JOIN Sales.InvoiceLines as InvoiceLines
     on Invoices.InvoiceID = InvoiceLines.InvoiceID
