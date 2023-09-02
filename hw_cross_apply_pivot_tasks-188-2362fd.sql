@@ -154,23 +154,17 @@ Select
     ap.InvoiceDate,
     ap.UnitPrice,
     ap.StockItemID
-
 from Sales.Customers as Customers
 cross apply ( 
-
 SELECT Top 2
         InvoiceDate AS InvoiceDate,
-
-
         UnitPrice as UnitPrice,
         Invoices.CustomerID,
         InvoiceLines.StockItemID
-
     FROM [WideWorldImporters].[Sales].[InvoiceLines] as InvoiceLines
         join Sales.Invoices as Invoices on
   InvoiceLines.InvoiceID = Invoices.InvoiceID
 
     where Invoices.CustomerID = Customers.CustomerID
-    order by UnitPrice desc 
-            ) ap
+    order by UnitPrice desc ) ap
 
