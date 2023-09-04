@@ -41,14 +41,14 @@ InvoiceMonth | Peeples Valley, AZ | Medicine Lodge, KS | Gasport, NY | Sylvanite
 
 Select
     InvoiceMonth,
-    IsNULL([1],0) as [Tailspin Toys (Head Office)],
-    IsNULL([2],0) as [Tailspin Toys (Sylvanite, MT)],
-    IsNULL([3],0) as [Tailspin Toys (Peeples Valley, AZ)],
-    IsNULL([4],0) as [Tailspin Toys (Medicine Lodge, KS)],
-    IsNULL([5],0) as [Tailspin Toys (Gasport, NY)],
-    IsNULL([6],0) as [Tailspin Toys (Jessie, ND)]
+    IsNULL([1],0) as [Head Office],
+    IsNULL([2],0) as [Sylvanite, MT],
+    IsNULL([3],0) as [Peeples Valley, AZ],
+    IsNULL([4],0) as [Medicine Lodge, KS],
+    IsNULL([5],0) as [Gasport, NY],
+    IsNULL([6],0) as [Jessie, ND]
 from (SELECT
-        DATEFROMPARTS(YEAR(InvoiceDate), MONTH(InvoiceDate), 1) AS InvoiceMonth,
+      convert(varchar,  CAST(DATEADD(mm,DATEDIFF(mm,0,InvoiceDate),0) AS DATE), 4) AS InvoiceMonth,
         Quantity * UnitPrice as sum,
         Invoices.CustomerID
 
